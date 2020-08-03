@@ -22,7 +22,6 @@ variable "role_assignment_strategy" {
 
 variable "filename" {
   description = "Local file with the initial function code"
-  default     = "lambda/dist/${var.app}.zip"
 }
 
 variable "group_map" {
