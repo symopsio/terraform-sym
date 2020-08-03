@@ -1,11 +1,19 @@
-variable "aws_account_id" {
-  description = "AWS account ID"
-  type        = number
+variable "app" {
+  description = "Application name for the approvals lambda"
+  type        = string
 }
 
 variable "aws_region" {
-  description = "AWS region"
-  type        = string
+  description = "The AWS region to provision into"
+}
+
+variable "aws_subnet_id" {
+  description = "The subnet_id to put the demo instance in"
+}
+
+variable "group_map" {
+  description = "Mapping of resource IDs to Okta group names"
+  type        = map(string)
 }
 
 variable "okta_application_id" {
@@ -31,14 +39,4 @@ variable "role_assignment_strategy" {
 variable "role_map" {
   description = "Mapping of resource IDs to AWS role names"
   type        = map(string)
-}
-
-variable "group_map" {
-  description = "Mapping of resource IDs to Okta group names"
-  type        = map(string)
-}
-
-variable "lambda_approvals_app_name" {
-  description = "Application name for the approvals lambda"
-  type        = string
 }

@@ -10,16 +10,6 @@ variable "app" {
   description = "App name"
 }
 
-variable "role_assignment_strategy" {
-  description = "Role assignment strategy"
-  type        = string
-
-  validation {
-    condition     = contains(["individual", "group"], var.role_assignment_strategy)
-    error_message = "Role assignment strategy should be individual or group."
-  }
-}
-
 variable "filename" {
   description = "Local file with the initial function code"
 }
@@ -46,6 +36,16 @@ variable "region" {
 variable "resource_ids" {
   description = "List of supported resource ids"
   type        = list(string)
+}
+
+variable "role_assignment_strategy" {
+  description = "Role assignment strategy"
+  type        = string
+
+  validation {
+    condition     = contains(["individual", "group"], var.role_assignment_strategy)
+    error_message = "Role assignment strategy should be individual or group."
+  }
 }
 
 variable "role_map" {
