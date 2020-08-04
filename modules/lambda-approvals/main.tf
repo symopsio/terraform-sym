@@ -1,17 +1,21 @@
 locals {
-  env_vars = merge({
+  role_map_no_aliases        = {for k, v in var.resources : k => v.role_name if v.account_alias == null}
+  role_map_with_aliases      = {for k, v in var.resources : k => "[${v.account_alias}] -- ${v.role_name}" if v.account_alias != null}
+  env_vars = {
     APPLICATION_ID           = var.okta_application_id
     OKTA_CLIENT_ORGURL       = var.okta_org_url
-    RESOURCE_IDS             = join(",", var.resource_ids)
     SSM_PREFIX               = var.app
     ROLE_ASSIGNMENT_STRATEGY = var.role_assignment_strategy
-  }, var.group_map, var.role_map)
+    GROUP_MAP                = jsonencode({for k, v in var.resources : k => v.group_name})
+    ROLE_MAP                 = jsonencode(merge(local.role_map_no_aliases, local.role_map_with_aliases))
+  }
 }
 
 resource "aws_lambda_function" "approve" {
   function_name = "${var.app}-approve"
 
-  filename = var.filename
+  s3_bucket = var.s3_bucket
+  s3_key = var.s3_key
 
   handler = "bin/lambda"
   runtime = "go1.x"
@@ -30,7 +34,8 @@ resource "aws_lambda_function" "approve" {
 resource "aws_lambda_function" "expire" {
   function_name = "${var.app}-expire"
 
-  filename = var.filename
+  s3_bucket = var.s3_bucket
+  s3_key = var.s3_key
 
   handler = "bin/lambda"
   runtime = "go1.x"
