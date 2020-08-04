@@ -1,12 +1,18 @@
 locals {
-  role_map_no_aliases        = {for k, v in var.resources : k => v.role_name if v.account_alias == null}
-  role_map_with_aliases      = {for k, v in var.resources : k => "[${v.account_alias}] -- ${v.role_name}" if v.account_alias != null}
+  defaults = {
+    account_alias = null,
+    group_name = null,
+    role_name = null
+  }
+  resources_with_defaults    = {for k, v in var.resources : k => merge(local.defaults, v)}
+  role_map_no_aliases        = {for k, v in local.resources_with_defaults : k => v.role_name if v.account_alias == null}
+  role_map_with_aliases      = {for k, v in local.resources_with_defaults : k => "[${v.account_alias}] -- ${v.role_name}" if v.account_alias != null}
   env_vars = {
     APPLICATION_ID           = var.okta_application_id
     OKTA_CLIENT_ORGURL       = var.okta_org_url
     SSM_PREFIX               = var.app
     ROLE_ASSIGNMENT_STRATEGY = var.role_assignment_strategy
-    GROUP_MAP                = jsonencode({for k, v in var.resources : k => v.group_name if v.group_name != null})
+    GROUP_MAP                = jsonencode({for k, v in local.resources_with_defaults : k => v.group_name if v.group_name != null})
     ROLE_MAP                 = jsonencode(merge(local.role_map_no_aliases, local.role_map_with_aliases))
   }
 }
