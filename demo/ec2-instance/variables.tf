@@ -4,12 +4,12 @@ variable "ami_id" {
 
 variable "instance_name" {
   description = "The name of the EC2 instance to create"
-  default     = "ssm-instance"
+  default     = "demo-instance"
 }
 
 variable "instance_role_name" {
   description = "The name of the IAM role to create"
-  default     = "SSMInstance"
+  default     = "DemoInstance"
 }
 
 variable "subnet_id" {

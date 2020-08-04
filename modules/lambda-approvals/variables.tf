@@ -10,16 +10,6 @@ variable "app" {
   description = "App name"
 }
 
-variable "filename" {
-  description = "Local file with the initial function code"
-}
-
-variable "group_map" {
-  description = "Mapping of resource ids to Okta group names"
-  type        = map(string)
-  default     = {}
-}
-
 variable "okta_application_id" {
   description = "Okta Application ID (for role-based assignment)"
   default     = ""
@@ -33,9 +23,9 @@ variable "region" {
   default = "us-east-1"
 }
 
-variable "resource_ids" {
-  description = "List of supported resource ids"
-  type        = list(string)
+variable "resources" {
+  description = "Mapping of resources to roles or groups. Seem tfvars.sample."
+  type        = map
 }
 
 variable "role_assignment_strategy" {
@@ -48,10 +38,14 @@ variable "role_assignment_strategy" {
   }
 }
 
-variable "role_map" {
-  description = "Mapping of resource ids to AWS role names"
-  type        = map(string)
-  default     = {}
+variable "s3_bucket" {
+  description = "S3 Bucket with the lambda code"
+  default     = "sym-releases"
+}
+
+variable "s3_key" {
+  description = "S3 Key with the path to the lambda code"
+  default     = "sym-lambda-golang/sym-lambda-golang-latest.zip"
 }
 
 variable "sym_account_id" {

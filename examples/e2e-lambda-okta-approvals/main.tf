@@ -13,12 +13,9 @@ module "lambda_approvals" {
   source                   = "../../modules/lambda-approvals"
   account_id               = data.aws_caller_identity.current.account_id
   app                      = var.app
-  filename                 = "${path.root}/../../modules/lambda-approvals/lambda/dist/sym-okta-golang-approvals.zip"
-  group_map                = var.group_map
   region                   = var.aws_region
-  resource_ids             = var.resource_ids
+  resources                = var.resources
   role_assignment_strategy = var.role_assignment_strategy
-  role_map                 = var.role_map
   okta_application_id      = var.okta_application_id
   okta_org_url             = var.okta_org_url
 }
@@ -52,7 +49,7 @@ module "staging_access" {
 
 resource "aws_iam_role_policy_attachment" "staging_ssm_user_attach" {
   role       = aws_iam_role.staging_ssm_role.name
-  policy_arn = module.staging_user_policy.policy_arn
+  policy_arn = module.staging_access.policy_arn
 }
 
 data "aws_ami" "amazon_linux" {
