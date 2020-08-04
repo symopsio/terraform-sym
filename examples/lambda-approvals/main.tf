@@ -13,6 +13,7 @@ module "lambda_approvals" {
   source                   = "../../modules/lambda-approvals"
   account_id               = data.aws_caller_identity.current.account_id
   app                      = var.app
+  external_id              = var.external_id
   region                   = var.aws_region
   resources                = var.resources
   role_assignment_strategy = var.role_assignment_strategy
