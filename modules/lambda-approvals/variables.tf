@@ -10,6 +10,10 @@ variable "app" {
   description = "App name"
 }
 
+variable "external_id" {
+  description = "The cross-account external id used when Sym invokes your cross-account role"
+}
+
 variable "okta_application_id" {
   description = "Okta Application ID (for role-based assignment)"
   default     = ""

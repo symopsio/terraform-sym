@@ -7,6 +7,10 @@ variable "aws_region" {
   description = "The AWS region to provision into"
 }
 
+variable "external_id" {
+  description = "The cross-account external id used when Sym invokes your cross-account role"
+}
+
 variable "okta_application_id" {
   description = "Okta application ID"
   type        = string
