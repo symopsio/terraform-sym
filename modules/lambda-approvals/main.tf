@@ -123,6 +123,11 @@ data "aws_iam_policy_document" "sym_execute_assume_role" {
       type        = "AWS"
       identifiers = ["arn:aws:iam::${var.sym_account_id}:root"]
     }
+    condition {
+      test = "StringEquals"
+      variable = "sts.ExternalId"
+      values = [ var.external_id ]
+    }
   }
 }
 
