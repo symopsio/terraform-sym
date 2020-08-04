@@ -45,7 +45,7 @@ variable "s3_bucket" {
 
 variable "s3_key" {
   description = "S3 Key with the path to the lambda code"
-  default     = "sym-lambda-golang/sym-lambda-golang-latest.zip"
+  default     = "sym-lambda-golang/sym-okta-golang-approvals-latest.zip"
 }
 
 variable "sym_account_id" {
