@@ -8,6 +8,11 @@ output "lambda_expire_function_arn" {
   value       = module.lambda_approvals.expire_function_arn
 }
 
+output "lambda_safelist_function_arn" {
+  description = "The ARN of the safelist lambda function"
+  value       = module.lambda_approvals.safelist_function_arn
+}
+
 output "sym_execute_role_arn" {
   description = "The ARN of the cross-account invocation role"
   value       = module.lambda_approvals.sym_execute_role_arn
