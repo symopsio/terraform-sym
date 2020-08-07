@@ -1,4 +1,5 @@
 locals {
+  ssm_prefix                 = var.app
   defaults = {
     account_alias = null,
     group_name = null,
@@ -10,7 +11,7 @@ locals {
   env_vars = {
     APPLICATION_ID           = var.okta_application_id
     OKTA_CLIENT_ORGURL       = var.okta_org_url
-    SSM_PREFIX               = var.app
+    SSM_PREFIX               = local.ssm_prefix
     ROLE_ASSIGNMENT_STRATEGY = var.role_assignment_strategy
     GROUP_MAP                = jsonencode({for k, v in local.resources_with_defaults : k => v.group_name if v.group_name != null})
     ROLE_MAP                 = jsonencode(merge(local.role_map_no_aliases, local.role_map_with_aliases))
@@ -31,10 +32,6 @@ resource "aws_lambda_function" "approve" {
   }
 
   role = aws_iam_role.lambda_exec.arn
-
-  lifecycle {
-    ignore_changes = [filename]
-  }
 }
 
 resource "aws_lambda_function" "expire" {
@@ -51,10 +48,22 @@ resource "aws_lambda_function" "expire" {
   }
 
   role = aws_iam_role.lambda_exec.arn
+}
 
-  lifecycle {
-    ignore_changes = [filename]
+resource "aws_lambda_function" "safelist" {
+  function_name = "${var.app}-safelist"
+
+  s3_bucket = var.s3_bucket
+  s3_key = var.s3_key
+
+  handler = "bin/lambda"
+  runtime = "go1.x"
+
+  environment {
+    variables = local.env_vars
   }
+
+  role = aws_iam_role.lambda_exec.arn
 }
 
 resource "aws_iam_role" "lambda_exec" {
@@ -125,7 +134,7 @@ data "aws_iam_policy_document" "sym_execute_assume_role" {
     }
     condition {
       test = "StringEquals"
-      variable = "sts.ExternalId"
+      variable = "sts:ExternalId"
       values = [ var.external_id ]
     }
   }
@@ -153,4 +162,10 @@ data "aws_iam_policy_document" "sym_execute_policy" {
       aws_lambda_function.expire.arn
     ]
   }
+}
+
+resource "aws_ssm_parameter" "safelist" {
+  name  = "/${local.ssm_prefix}/SAFELIST"
+  type  = "String"
+  value = jsonencode(var.safelist)
 }

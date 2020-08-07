@@ -30,3 +30,9 @@ variable "role_assignment_strategy" {
   description = "Role assignment strategy"
   type        = string
 }
+
+variable "safelist" {
+  description = "List of users that are able to make requests"
+  default     = []
+  type        = list(string)
+}

@@ -42,6 +42,12 @@ variable "role_assignment_strategy" {
   }
 }
 
+variable "safelist" {
+  description = "List of users that are able to make requests"
+  default     = []
+  type        = list(string)
+}
+
 variable "s3_bucket" {
   description = "S3 Bucket with the lambda code"
   default     = "sym-releases"
