@@ -159,7 +159,8 @@ data "aws_iam_policy_document" "sym_execute_policy" {
     ]
     resources = [
       aws_lambda_function.approve.arn,
-      aws_lambda_function.expire.arn
+      aws_lambda_function.expire.arn,
+      aws_lambda_function.safelist.arn
     ]
   }
 }
