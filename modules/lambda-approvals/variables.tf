@@ -12,8 +12,8 @@ variable "app" {
 
 variable "authroles" {
   description = "Map of roles to lists of authorized users. See tfvars.sample."
-  default     = []
-  type        = map(string,list(string))
+  default     = {}
+  type        = map(list(string))
 }
 
 variable "external_id" {
@@ -35,7 +35,7 @@ variable "region" {
 
 variable "resources" {
   description = "Mapping of resources to roles or groups. See tfvars.sample."
-  type        = map
+  type        = map(map(string))
 }
 
 variable "role_assignment_strategy" {

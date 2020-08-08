@@ -5,8 +5,8 @@ variable "app" {
 
 variable "authroles" {
   description = "Map of roles to lists of authorized users. See tfvars.sample."
-  default     = []
-  type        = map(string,list(string))
+  default     = {}
+  type        = map(list(string))
 }
 
 variable "aws_region" {
@@ -29,7 +29,7 @@ variable "okta_org_url" {
 
 variable "resources" {
   description = "Mapping of resources to roles or groups. Seem tfvars.sample."
-  type        = map
+  type        = map(map(string))
 }
 
 variable "role_assignment_strategy" {
