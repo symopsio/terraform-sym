@@ -10,6 +10,12 @@ variable "app" {
   description = "App name"
 }
 
+variable "authroles" {
+  description = "Map of roles to lists of authorized users. See tfvars.sample."
+  default     = []
+  type        = map(string,list(string))
+}
+
 variable "external_id" {
   description = "The cross-account external id used when Sym invokes your cross-account role"
 }
@@ -28,7 +34,7 @@ variable "region" {
 }
 
 variable "resources" {
-  description = "Mapping of resources to roles or groups. Seem tfvars.sample."
+  description = "Mapping of resources to roles or groups. See tfvars.sample."
   type        = map
 }
 
@@ -40,12 +46,6 @@ variable "role_assignment_strategy" {
     condition     = contains(["individual", "group"], var.role_assignment_strategy)
     error_message = "Role assignment strategy should be individual or group."
   }
-}
-
-variable "safelist" {
-  description = "List of users that are able to make requests"
-  default     = []
-  type        = list(string)
 }
 
 variable "s3_bucket" {

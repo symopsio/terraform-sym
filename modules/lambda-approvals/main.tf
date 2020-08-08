@@ -50,8 +50,8 @@ resource "aws_lambda_function" "expire" {
   role = aws_iam_role.lambda_exec.arn
 }
 
-resource "aws_lambda_function" "safelist" {
-  function_name = "${var.app}-safelist"
+resource "aws_lambda_function" "authz" {
+  function_name = "${var.app}-authz"
 
   s3_bucket = var.s3_bucket
   s3_key = var.s3_key
@@ -159,14 +159,14 @@ data "aws_iam_policy_document" "sym_execute_policy" {
     ]
     resources = [
       aws_lambda_function.approve.arn,
+      aws_lambda_function.authz.arn
       aws_lambda_function.expire.arn,
-      aws_lambda_function.safelist.arn
     ]
   }
 }
 
-resource "aws_ssm_parameter" "safelist" {
-  name  = "/${local.ssm_prefix}/SAFELIST"
+resource "aws_ssm_parameter" "authroles" {
+  name  = "/${local.ssm_prefix}/AUTHROLES"
   type  = "String"
-  value = jsonencode(var.safelist)
+  value = jsonencode(var.authroles)
 }

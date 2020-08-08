@@ -3,6 +3,12 @@ variable "app" {
   type        = string
 }
 
+variable "authroles" {
+  description = "Map of roles to lists of authorized users. See tfvars.sample."
+  default     = []
+  type        = map(string,list(string))
+}
+
 variable "aws_region" {
   description = "The AWS region to provision into"
 }
@@ -29,10 +35,4 @@ variable "resources" {
 variable "role_assignment_strategy" {
   description = "Role assignment strategy"
   type        = string
-}
-
-variable "safelist" {
-  description = "List of users that are able to make requests"
-  default     = []
-  type        = list(string)
 }
