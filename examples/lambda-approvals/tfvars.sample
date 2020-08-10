@@ -1,0 +1,22 @@
+app                       = "lambda-approvals"
+authroles {
+  requesters = ["requester@myorg.com"]
+  approvers  = ["approver@myorg.com"]
+}
+aws_region                = "us-east-1"
+external_id               = "7CD5900A-A879-498B-878C-BD7156F95D1A"
+okta_application_id       = "myokta-app-id"
+okta_org_url              = "https://myorg.okta.com"
+role_assignment_strategy  = "individual"
+resources = {
+  prod = {
+    account_alias = "myorg"
+    role_name = "MyRole"
+    group_name = "aws#myorg#MyRole#123456789012"
+  }
+  staging = {
+    account_alias = "mysuborg"
+    role_name = "MySubRole"
+    group_name = "aws#myorg#MySubRole#234567890123"
+  }
+}
