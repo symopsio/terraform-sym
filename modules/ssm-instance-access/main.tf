@@ -13,8 +13,6 @@ resource "aws_iam_policy" "ssm_instance_policy" {
               "ssm:GetDocument",
               "ssm:DescribeDocument",
               "ssm:GetManifest",
-              "ssm:GetParameter",
-              "ssm:GetParameters",
               "ssm:ListAssociations",
               "ssm:ListInstanceAssociations",
               "ssm:PutInventory",
