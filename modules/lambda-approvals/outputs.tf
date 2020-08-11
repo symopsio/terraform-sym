@@ -1,16 +1,6 @@
-output "approve_function_arn" {
-  description = "The arn of the approve function"
-  value       = aws_lambda_function.approve.arn
-}
-
-output "authz_function_arn" {
-  description = "The arn of the authz function"
-  value       = aws_lambda_function.authz.arn
-}
-
-output "expire_function_arn" {
-  description = "The arn of the expire function"
-  value       = aws_lambda_function.expire.arn
+output "function_arn" {
+  description = "The arn of the sym lambda function"
+  value       = aws_lambda_function.sym.arn
 }
 
 output "sym_execute_role_arn" {

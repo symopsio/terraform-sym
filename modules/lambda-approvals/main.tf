@@ -18,40 +18,8 @@ locals {
   }
 }
 
-resource "aws_lambda_function" "approve" {
-  function_name = "${var.app}-approve"
-
-  s3_bucket = var.s3_bucket
-  s3_key = var.s3_key
-
-  handler = "bin/lambda"
-  runtime = "go1.x"
-
-  environment {
-    variables = local.env_vars
-  }
-
-  role = aws_iam_role.lambda_exec.arn
-}
-
-resource "aws_lambda_function" "expire" {
-  function_name = "${var.app}-expire"
-
-  s3_bucket = var.s3_bucket
-  s3_key = var.s3_key
-
-  handler = "bin/lambda"
-  runtime = "go1.x"
-
-  environment {
-    variables = local.env_vars
-  }
-
-  role = aws_iam_role.lambda_exec.arn
-}
-
-resource "aws_lambda_function" "authz" {
-  function_name = "${var.app}-authz"
+resource "aws_lambda_function" "sym" {
+  function_name = var.app
 
   s3_bucket = var.s3_bucket
   s3_key = var.s3_key
@@ -158,9 +126,7 @@ data "aws_iam_policy_document" "sym_execute_policy" {
       "lambda:InvokeFunction"
     ]
     resources = [
-      aws_lambda_function.approve.arn,
-      aws_lambda_function.authz.arn,
-      aws_lambda_function.expire.arn
+      aws_lambda_function.sym.arn,
     ]
   }
 }
