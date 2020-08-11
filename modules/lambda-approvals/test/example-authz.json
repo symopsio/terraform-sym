@@ -1,4 +1,7 @@
 {
-  "user": "user@example.com",
-  "role": "requesters"
+  "action": "authz",
+  "payload": {
+    "user": "user@example.com",
+    "role": "requesters"
+  }
 }

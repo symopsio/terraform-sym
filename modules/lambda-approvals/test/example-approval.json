@@ -1,45 +1,48 @@
 {
-  "schema": {
-    "version": 1
-  },
-  "request": {
+  "action": "approve",
+  "payload": {
     "schema": {
       "version": 1
     },
-    "target": {
-      "user": {
-        "identities": [
-          {
-            "service": 2,
-            "id": "requester+okta@example.com"
-          },
-          {
-            "service": 1,
-            "id": "requester+slack@example.com"
-          }
-        ]
+    "request": {
+      "schema": {
+        "version": 1
       },
-      "resource": {
-        "service": 4,
-        "id": "staging"
+      "target": {
+        "user": {
+          "identities": [
+            {
+              "service": 2,
+              "id": "requester+okta@example.com"
+            },
+            {
+              "service": 1,
+              "id": "requester+slack@example.com"
+            }
+          ]
+        },
+        "resource": {
+          "service": 4,
+          "id": "staging"
+        }
+      },
+      "meta": {
+        "reason": "User-specified reason here"
       }
     },
     "meta": {
-      "reason": "User-specified reason here"
-    }
-  },
-  "meta": {
-    "approver": {
-      "identities": [
-        {
-          "service": 2,
-          "id": "approver+okta@example.com"
-        },
-        {
-          "service": 1,
-          "id": "approver+slack@example.com"
-        }
-      ]
+      "approver": {
+        "identities": [
+          {
+            "service": 2,
+            "id": "approver+okta@example.com"
+          },
+          {
+            "service": 1,
+            "id": "approver+slack@example.com"
+          }
+        ]
+      }
     }
   }
 }
