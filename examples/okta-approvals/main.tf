@@ -9,8 +9,8 @@ provider "aws" {
 
 data "aws_caller_identity" "current" { }
 
-module "lambda_approvals" {
-  source                   = "../../modules/lambda-approvals"
+module "okta_approvals" {
+  source                   = "../../modules/okta-approvals"
   account_id               = data.aws_caller_identity.current.account_id
   app                      = var.app
   authroles                = var.authroles

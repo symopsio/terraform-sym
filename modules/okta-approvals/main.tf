@@ -24,7 +24,7 @@ resource "aws_lambda_function" "sym" {
   s3_bucket = var.s3_bucket
   s3_key = var.s3_key
 
-  handler = "bin/lambda"
+  handler = "bin/okta-approvals"
   runtime = "go1.x"
 
   environment {
