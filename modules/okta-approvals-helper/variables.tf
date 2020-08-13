@@ -39,16 +39,6 @@ variable "role_assignment_strategy" {
   type        = string
 }
 
-variable "s3_bucket" {
-  description = "S3 Bucket with the lambda code"
-  default     = "sym-releases"
-}
-
-variable "s3_key" {
-  description = "S3 Key with the path to the lambda code"
-  default     = "sym-lambda-golang/sym-okta-approvals-golang-latest.zip"
-}
-
 variable "sym_account_id" {
   description = "Account ID for Sym Cross-Account Invocation"
   default     = "803477428605"
