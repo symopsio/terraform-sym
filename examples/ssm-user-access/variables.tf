@@ -7,8 +7,8 @@ variable "aws_region" {
   description = "The AWS region to provision into"
 }
 
-variable "tags" {
-  description = "Tag map"
+variable "instance_tag_options" {
+  description = "Instance tag key-value pairs that the policy grants access to (limit 9)"
   default = {}
   type = map(string)
 }
