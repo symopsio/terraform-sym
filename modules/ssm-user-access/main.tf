@@ -1,5 +1,5 @@
 data "aws_iam_policy_document" "conditions" {
-  for_each = var.tags
+  for_each = var.instance_tag_options
   statement {
     effect = "Allow"
     actions = [
@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "conditions" {
 }
 
 locals {
-  source_documents = [for k in keys(var.tags) : data.aws_iam_policy_document.conditions[k].json]
+  source_documents = [for k in keys(var.instance_tag_options) : data.aws_iam_policy_document.conditions[k].json]
 }
 
 module "policy_aggregator" {
