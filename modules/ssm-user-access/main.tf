@@ -1,6 +1,5 @@
-# Create a policy that lets the SSM user start sessions on instances with the
-# right tag and terminate their own sessions
-data "aws_iam_policy_document" "ssm_user" {
+data "aws_iam_policy_document" "conditions" {
+  for_each = var.instance_tag_options
   statement {
     effect = "Allow"
     actions = [
@@ -12,10 +11,23 @@ data "aws_iam_policy_document" "ssm_user" {
     ]
     condition {
       test = "StringLike"
-      variable = "ssm:resourceTag/${var.tag_key}"
-      values = [ var.tag_value ]
+      variable = "ssm:resourceTag/${each.key}"
+      values = [ each.value ]
     }
   }
+}
+
+locals {
+  source_documents = [for k in keys(var.instance_tag_options) : data.aws_iam_policy_document.conditions[k].json]
+}
+
+module "policy_aggregator" {
+  source           = "github.com/cloudposse/terraform-aws-iam-policy-document-aggregator"
+  source_documents = local.source_documents
+}
+
+data "aws_iam_policy_document" "ssm_user" {
+  source_json = module.policy_aggregator.result_document
   statement {
     effect = "Allow"
     actions = [ "ssm:StartSession" ]
@@ -51,6 +63,6 @@ data "aws_iam_policy_document" "ssm_user" {
 
 resource "aws_iam_policy" "ssm_user_policy" {
   name = var.policy_name
-  description = "Grants users SSM access to instances tagged with ${var.tag_key}:${var.tag_value}"
+  description = "Grants users SSM access to tagged instances"
   policy = data.aws_iam_policy_document.ssm_user.json
 }
