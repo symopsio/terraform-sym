@@ -1,13 +1,9 @@
-variable "tag_key" {
-  description = "The tag key you want to filter access by"
-  default     = "Environment"
-}
-
-variable "tag_value" {
-  description = "The tag value you want to filter access by"
-  default     = "staging"
-}
-
 variable "policy_name" {
   description = "The name of the IAM policy to create"
+}
+
+variable "tags" {
+  description = "Instance tag key-value pairs that the policy grants access to (limit 9)"
+  default = {}
+  type = map(string)
 }

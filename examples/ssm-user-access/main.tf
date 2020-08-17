@@ -10,6 +10,7 @@ provider "aws" {
 data "aws_caller_identity" "current" { }
 
 module "ssm_user_access" {
-  source                   = "../../modules/ssm-user-access"
-  policy_name              = var.app
+  source      = "../../modules/ssm-user-access"
+  policy_name = var.app
+  tags        = var.tags
 }
