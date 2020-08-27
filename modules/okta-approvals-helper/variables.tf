@@ -9,7 +9,7 @@ variable "app" {
 variable "authroles" {
   description = "Map of roles to lists of authorized users. See tfvars.sample."
   default     = {}
-  type        = map(list(string))
+  type        = map
 }
 
 variable "external_id" {
