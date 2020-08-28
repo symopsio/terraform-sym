@@ -2,11 +2,11 @@ app                       = "okta-approvals"
 authroles {
   requesters = {
     users = ["requester@myorg.com"],
-    group = "MyOktaRequestersGroup"
+    groups = ["MyOktaRequestersGroup"]
   },
   approvers = {
     users = ["approver@myorg.com"],
-    group = "MyOktaApproversGroup"
+    groups = ["MyOktaApproversGroup"]
   }
 }
 aws_region                = "us-east-1"
