@@ -1,7 +1,13 @@
 app                       = "okta-approvals"
 authroles {
-  requesters = ["requester@myorg.com"]
-  approvers  = ["approver@myorg.com"]
+  requesters = {
+    users = ["requester@myorg.com"],
+    groups = ["MyOktaRequestersGroup"]
+  },
+  approvers = {
+    users = ["approver@myorg.com"],
+    groups = ["MyOktaApproversGroup"]
+  }
 }
 aws_region                = "us-east-1"
 external_id               = "7CD5900A-A879-498B-878C-BD7156F95D1A"
