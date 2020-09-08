@@ -49,6 +49,7 @@ data "aws_iam_policy_document" "ssm_user" {
       "ssm:DescribeInstanceProperties",
       "ssm:DescribeSessions",
       "ssm:GetConnectionStatus",
+      "ssm:GetCommandInvocation",
       "ssm:ListCommands",
       "ssm:ListCommandInvocations"
     ]
