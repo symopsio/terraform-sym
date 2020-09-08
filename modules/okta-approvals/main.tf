@@ -9,6 +9,7 @@ module "okta_approvals_helper" {
   region                   = var.region
   resources                = var.resources
   role_assignment_strategy = var.role_assignment_strategy
+  sym_account_id           = var.sym_account_id
 }
 
 resource "aws_lambda_function" "sym" {
