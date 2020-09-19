@@ -51,14 +51,10 @@ data "aws_iam_policy_document" "ssm_user" {
       "ssm:GetConnectionStatus",
       "ssm:GetCommandInvocation",
       "ssm:ListCommands",
-      "ssm:ListCommandInvocations"
+      "ssm:ListCommandInvocations",
+      "ssm:TerminateSession"
     ]
     resources = [ "*" ]
-  }
-  statement {
-    effect = "Allow"
-    actions = [ "ssm:TerminateSession" ]
-    resources = [ "arn:aws:ssm:*:*:session/$${aws:username}-*" ]
   }
 }
 
