@@ -58,7 +58,12 @@ data "aws_iam_policy_document" "ssm_user" {
   statement {
     effect = "Allow"
     actions = [ "ssm:TerminateSession" ]
-    resources = [ "arn:aws:ssm:*:*:session/$${aws:username}-*" ]
+    resources = [ "*" ]
+    condition {
+      test = "StringLike"
+      variable = "ssm:resourceTag/aws:ssmmessages:session-id"
+      values = [ "$${aws:userid}" ]
+    }
   }
 }
 
