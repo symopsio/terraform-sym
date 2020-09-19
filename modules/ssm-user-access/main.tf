@@ -51,10 +51,19 @@ data "aws_iam_policy_document" "ssm_user" {
       "ssm:GetConnectionStatus",
       "ssm:GetCommandInvocation",
       "ssm:ListCommands",
-      "ssm:ListCommandInvocations",
-      "ssm:TerminateSession"
+      "ssm:ListCommandInvocations"
     ]
     resources = [ "*" ]
+  }
+  statement {
+    effect = "Allow"
+    actions = [ "ssm:TerminateSession" ]
+    resources = [ "*" ]
+    condition {
+      test = "StringLike"
+      variable = "ssm:resourceTag/aws:ssmmessages:session-id"
+      values = [ "$${aws:userid}" ]
+    }
   }
 }
 
