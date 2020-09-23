@@ -72,8 +72,11 @@ data "aws_iam_policy_document" "ssm_user" {
   }
   statement {
     effect = "Allow"
-    actions = [ "s3:PutObject" ]
-    resources = [ "arn:aws:s3:::sym-doctor-*" ]
+    actions = [ 
+      "s3:PutObject",
+      "s3:PutObjectAcl"
+    ]
+    resources = [ "arn:aws:s3:::sym-doctor-*/*" ]
   }
 }
 
