@@ -67,7 +67,7 @@ module "s3_bucket" {
   source = "terraform-aws-modules/s3-bucket/aws"
   version = "v1.9.0"
 
-  bucket        = "sym-ansible-${data.aws_region.current.name}"
+  bucket        = "sym-ansible-${var.org_slug}-${data.aws_region.current.name}"
   acl           = "private"
 
   // S3 bucket-level Public Access Block configuration

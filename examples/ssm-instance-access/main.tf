@@ -9,5 +9,6 @@ provider "aws" {
 
 module "ssm_user_access" {
   source                = "../../modules/ssm-instance-access"
+  org_slug              = "example"
   policy_name           = var.app
 }
