@@ -70,6 +70,14 @@ data "aws_iam_policy_document" "ssm_user" {
     actions = [ "ssm:TerminateSession" ]
     resources = [ "arn:aws:ssm:*:*:session/$${aws:username}-*" ]
   }
+  statement {
+    effect = "Allow"
+    actions = [ 
+      "s3:PutObject",
+      "s3:PutObjectAcl"
+    ]
+    resources = [ "arn:aws:s3:::sym-doctor-*/*" ]
+  }
 }
 
 resource "aws_iam_policy" "ssm_user_policy" {
