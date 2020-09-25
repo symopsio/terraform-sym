@@ -52,7 +52,7 @@ resource "aws_iam_policy" "ssm_instance_policy" {
               "s3:GetObject",
               "s3:GetObjectAcl",
               "s3:PutObject",
-              "s3:PutObjectAcl",
+              "s3:PutObjectAcl"
           ],
           "Resource": "${module.s3_bucket.this_s3_bucket_arn}/*"
       }
