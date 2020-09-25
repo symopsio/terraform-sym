@@ -61,15 +61,13 @@ resource "aws_iam_policy" "ssm_instance_policy" {
 EOT
 }
 
-data "aws_region" "current" {}
-
 data "aws_caller_identity" "current" {}
 
 module "s3_bucket" {
   source = "terraform-aws-modules/s3-bucket/aws"
   version = "v1.9.0"
 
-  bucket        = "sym-ansible-${data.aws_caller_identity.current.account_id}-${data.aws_region.current.name}"
+  bucket        = "sym-ansible-${data.aws_caller_identity.current.account_id}"
   acl           = "private"
 
   // S3 bucket-level Public Access Block configuration
