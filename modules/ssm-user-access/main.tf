@@ -32,14 +32,14 @@ data "aws_iam_policy_document" "ssm_user" {
     effect = "Allow"
     actions = [ "ssm:StartSession" ]
     resources = [
-      "arn:aws:ssm:*:*:document/AWS-StartSSHSession"
+      "arn:aws:ssm:*:*:document/*"
     ]
   }
   statement {
     effect = "Allow"
     actions = [ "ssm:SendCommand" ]
     resources = [
-      "arn:aws:ssm:*:*:document/AWS-RunShellScript"
+      "arn:aws:ssm:*:*:document/*"
     ]
   }
   statement {
