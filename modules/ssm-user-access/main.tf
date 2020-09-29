@@ -30,16 +30,12 @@ data "aws_iam_policy_document" "ssm_user" {
   source_json = module.policy_aggregator.result_document
   statement {
     effect = "Allow"
-    actions = [ "ssm:StartSession" ]
-    resources = [
-      "arn:aws:ssm:*:*:document/AWS-StartSSHSession"
+    actions = [
+      "ssm:SendCommand",
+      "ssm:StartSession"
     ]
-  }
-  statement {
-    effect = "Allow"
-    actions = [ "ssm:SendCommand" ]
     resources = [
-      "arn:aws:ssm:*:*:document/AWS-RunShellScript"
+      "arn:aws:ssm:*:*:document/AWS-*"
     ]
   }
   statement {
@@ -58,17 +54,7 @@ data "aws_iam_policy_document" "ssm_user" {
   statement {
     effect = "Allow"
     actions = [ "ssm:TerminateSession" ]
-    resources = [ "*" ]
-    condition {
-      test = "StringLike"
-      variable = "ssm:resourceTag/aws:ssmmessages:session-id"
-      values = [ "$${aws:userid}" ]
-    }
-  }
-  statement {
-    effect = "Allow"
-    actions = [ "ssm:TerminateSession" ]
-    resources = [ "arn:aws:ssm:*:*:session/$${aws:username}-*" ]
+    resources = [ "arn:aws:ssm:*:*:session/*" ]
   }
   statement {
     effect = "Allow"
