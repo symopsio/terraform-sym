@@ -49,6 +49,7 @@ resource "aws_iam_policy" "ssm_instance_policy" {
       {
           "Effect": "Allow",
           "Action": [
+              "s3:DeleteObject",
               "s3:GetObject",
               "s3:GetObjectAcl",
               "s3:PutObject",
