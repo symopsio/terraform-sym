@@ -30,16 +30,12 @@ data "aws_iam_policy_document" "ssm_user" {
   source_json = module.policy_aggregator.result_document
   statement {
     effect = "Allow"
-    actions = [ "ssm:StartSession" ]
-    resources = [
-      "arn:aws:ssm:*:*:document/*"
+    actions = [
+      "ssm:SendCommand",
+      "ssm:StartSession"
     ]
-  }
-  statement {
-    effect = "Allow"
-    actions = [ "ssm:SendCommand" ]
     resources = [
-      "arn:aws:ssm:*:*:document/*"
+      "arn:aws:ssm:*:*:document/AWS-*"
     ]
   }
   statement {
