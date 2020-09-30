@@ -62,18 +62,35 @@ resource "aws_iam_policy" "ssm_instance_policy" {
 EOT
 }
 
-data "aws_caller_identity" "current" {}
-
 module "s3_bucket" {
   source = "terraform-aws-modules/s3-bucket/aws"
   version = "v1.9.0"
 
-  bucket        = "sym-ansible-${data.aws_caller_identity.current.account_id}"
+  bucket        = var.ansible_bucket_name
   acl           = "private"
+
+  server_side_encryption_configuration = {
+    rule = {
+      apply_server_side_encryption_by_default = {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+
+  // Ansible-related objects can be cleaned up daily
+  lifecycle_rule = [{
+    id      = "expire-afer-one-day"
+    enabled = true
+    expiration = {
+      days = 1
+    }
+  }]
 
   // S3 bucket-level Public Access Block configuration
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
+
+  tags = var.ansible_bucket_tags
 }

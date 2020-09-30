@@ -19,6 +19,8 @@ data "aws_iam_policy_document" "conditions" {
 
 locals {
   source_documents = [for k in keys(var.instance_tag_options) : data.aws_iam_policy_document.conditions[k].json]
+  trimmed_ansible_path = trim(var.ansible_bucket_path, "/")
+  full_ansible_path = local.trimmed_ansible_path == "" ? "/*" : "/${local.trimmed_ansible_path}/*"
 }
 
 module "policy_aggregator" {
@@ -76,7 +78,7 @@ data "aws_iam_policy_document" "ssm_user" {
       "s3:PutObjectAcl"
     ]
     resources = [
-      "arn:aws:s3:::sym-ansible-*/*",
+      "arn:aws:s3:::${var.ansible_bucket_name}${local.full_ansible_path}",
     ]
   }
 }
