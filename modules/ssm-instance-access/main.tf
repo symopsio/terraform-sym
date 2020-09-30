@@ -77,6 +77,15 @@ module "s3_bucket" {
     }
   }
 
+  // Ansible-related objects can be cleaned up daily
+  lifecycle_rule = [{
+    id      = "expire-afer-one-day"
+    enabled = true
+    expiration = {
+      days = 1
+    }
+  }]
+
   // S3 bucket-level Public Access Block configuration
   block_public_acls       = true
   block_public_policy     = true
