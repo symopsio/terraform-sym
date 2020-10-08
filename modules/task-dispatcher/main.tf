@@ -18,10 +18,6 @@ resource "aws_lambda_function" "sym" {
   }
 
   role = aws_iam_role.lambda_exec.arn
-
-  lifecycle {
-    ignore_changes = [ filename ]
-  }
 }
 
 resource "aws_ssm_parameter" "function_map" {

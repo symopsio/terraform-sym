@@ -12,10 +12,6 @@ resource "aws_lambda_function" "example" {
   runtime = "python3.8"
 
   role = aws_iam_role.lambda_exec.arn
-
-  lifecycle {
-    ignore_changes = [ filename ]
-  }
 }
 
 resource "aws_iam_role" "lambda_exec" {
