@@ -1,6 +1,6 @@
 variable "app" {
   description = "Name of the application to deploy"
-  default     = "sym-task-dispatcher"
+  default     = "sym-example-task-dispatcher"
 }
 
 variable "region" {
