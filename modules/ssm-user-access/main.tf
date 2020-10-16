@@ -44,6 +44,7 @@ data "aws_iam_policy_document" "ssm_user" {
     effect = "Allow"
     actions = [
       "ec2:DescribeInstances",
+      "ec2:DescribeRegions",
       "ssm:DescribeInstanceProperties",
       "ssm:DescribeSessions",
       "ssm:GetConnectionStatus",
