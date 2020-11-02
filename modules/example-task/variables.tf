@@ -26,3 +26,9 @@ variable "sleep" {
   default     = 0
   type        = number
 }
+
+variable "timeout" {
+  description = "Invocation timeout for tasks, in seconds"
+  default     = 3
+  type        = number
+}

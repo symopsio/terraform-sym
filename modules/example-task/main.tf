@@ -11,6 +11,8 @@ resource "aws_lambda_function" "example" {
   handler = "handler.handle"
   runtime = "python3.8"
 
+  timeout = var.timeout
+
   environment {
     variables = {
       "TASK_TIMEOUT" = var.sleep
