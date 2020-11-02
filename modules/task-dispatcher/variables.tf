@@ -31,3 +31,8 @@ variable "sym_account_id" {
   description = "Account ID for Sym Cross-Account Invocation"
   default     = "803477428605"
 }
+
+variable "timeout" {
+  description = "Invocation timeout for tasks, in seconds"
+  default     = "3"
+}

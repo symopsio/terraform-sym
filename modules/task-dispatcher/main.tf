@@ -11,6 +11,8 @@ resource "aws_lambda_function" "sym" {
   handler = "handler.dispatch"
   runtime = "python3.8"
 
+  timeout = var.timeout
+
   environment {
     variables = {
       "SSM_PREFIX" = local.ssm_prefix
