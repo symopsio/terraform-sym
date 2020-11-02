@@ -20,3 +20,9 @@ variable "s3_key" {
   description = "S3 Key with the path to the lambda code"
   default     = "sym-awslambda-py/example-task-latest.zip"
 }
+
+variable "sleep" {
+  description = "Amount of time to sleep the example task"
+  default     = 0
+  type        = number
+}

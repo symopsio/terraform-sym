@@ -11,6 +11,12 @@ resource "aws_lambda_function" "example" {
   handler = "handler.handle"
   runtime = "python3.8"
 
+  environment {
+    variables = {
+      "TASK_TIMEOUT" = var.sleep
+    }
+  }
+
   role = aws_iam_role.lambda_exec.arn
 }
 
