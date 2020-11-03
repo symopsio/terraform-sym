@@ -16,6 +16,7 @@ resource "aws_lambda_function" "sym" {
   environment {
     variables = {
       "SSM_PREFIX" = local.ssm_prefix
+      "READ_TIMEOUT" = max(4, (var.timeout - 1))
     }
   }
 

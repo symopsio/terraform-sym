@@ -34,6 +34,6 @@ variable "sym_account_id" {
 
 variable "timeout" {
   description = "Invocation timeout for tasks, in seconds"
-  default     = 3
+  default     = 10
   type        = number
 }
