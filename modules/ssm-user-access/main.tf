@@ -10,21 +10,22 @@ data "aws_iam_policy_document" "conditions" {
       "arn:aws:ec2:*:*:instance/*",
     ]
     condition {
-      test = "StringLike"
+      test     = "StringLike"
       variable = "ssm:resourceTag/${each.key}"
-      values = [ each.value ]
+      values   = [each.value]
     }
   }
 }
 
 locals {
-  source_documents = [for k in keys(var.instance_tag_options) : data.aws_iam_policy_document.conditions[k].json]
+  source_documents     = [for k in keys(var.instance_tag_options) : data.aws_iam_policy_document.conditions[k].json]
   trimmed_ansible_path = trim(var.ansible_bucket_path, "/")
-  full_ansible_path = local.trimmed_ansible_path == "" ? "/*" : "/${local.trimmed_ansible_path}/*"
+  full_ansible_path    = local.trimmed_ansible_path == "" ? "/*" : "/${local.trimmed_ansible_path}/*"
 }
 
 module "policy_aggregator" {
-  source           = "github.com/cloudposse/terraform-aws-iam-policy-document-aggregator"
+  source           = "cloudposse/iam-policy-document-aggregator/aws"
+  version          = "0.6.0"
   source_documents = local.source_documents
 }
 
@@ -52,16 +53,16 @@ data "aws_iam_policy_document" "ssm_user" {
       "ssm:ListCommands",
       "ssm:ListCommandInvocations"
     ]
-    resources = [ "*" ]
+    resources = ["*"]
+  }
+  statement {
+    effect    = "Allow"
+    actions   = ["ssm:TerminateSession"]
+    resources = ["arn:aws:ssm:*:*:session/*"]
   }
   statement {
     effect = "Allow"
-    actions = [ "ssm:TerminateSession" ]
-    resources = [ "arn:aws:ssm:*:*:session/*" ]
-  }
-  statement {
-    effect = "Allow"
-    actions = [ 
+    actions = [
       "s3:PutObject",
       "s3:PutObjectAcl",
     ]
@@ -85,7 +86,7 @@ data "aws_iam_policy_document" "ssm_user" {
 }
 
 resource "aws_iam_policy" "ssm_user_policy" {
-  name = var.policy_name
+  name        = var.policy_name
   description = "Grants users SSM access to tagged instances"
-  policy = data.aws_iam_policy_document.ssm_user.json
+  policy      = data.aws_iam_policy_document.ssm_user.json
 }
