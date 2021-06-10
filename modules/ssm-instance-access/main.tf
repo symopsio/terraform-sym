@@ -1,7 +1,7 @@
 resource "aws_iam_policy" "ssm_instance_policy" {
-  name = var.policy_name
+  name        = var.policy_name
   description = "Grants instances SSM access for use with Sym access workflows"
-  policy = <<EOT
+  policy      = <<EOT
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -63,11 +63,11 @@ EOT
 }
 
 module "s3_bucket" {
-  source = "terraform-aws-modules/s3-bucket/aws"
-  version = "v1.9.0"
+  source  = "terraform-aws-modules/s3-bucket/aws"
+  version = "v1.25.0"
 
-  bucket        = var.ansible_bucket_name
-  acl           = "private"
+  bucket = var.ansible_bucket_name
+  acl    = "private"
 
   server_side_encryption_configuration = {
     rule = {
