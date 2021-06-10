@@ -1,13 +1,8 @@
-terraform {
-  required_version = ">= 0.12.7"
-}
-
 provider "aws" {
-  version = "~> 2.0"
-  region  = var.aws_region
+  region = var.aws_region
 }
 
-data "aws_caller_identity" "current" { }
+data "aws_caller_identity" "current" {}
 
 module "okta_approvals" {
   source                   = "../../modules/okta-approvals"
