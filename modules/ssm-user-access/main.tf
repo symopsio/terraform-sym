@@ -25,7 +25,7 @@ locals {
 
 module "policy_aggregator" {
   source           = "cloudposse/iam-policy-document-aggregator/aws"
-  version          = "0.6.0"
+  version          = "0.8.0"
   source_documents = local.source_documents
 }
 
